@@ -1,0 +1,12 @@
+# Local reference files — not part of the deployed site
+files-ITL/
+files-ITL.zip
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Editor
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,24 @@
+[
+  {
+    "year": 2022,
+    "title": "Effects of wind veer on a yawed wind turbine wake in atmospheric boundary layer flow",
+    "journal": "Physical Review Fluids",
+    "volume": "7(11)",
+    "page": "114609",
+    "authors": ["Ghanesh Narasimhan", "Dennice F. Gayme", "Charles Meneveau"],
+    "doi": "https://journals.aps.org/prfluids/abstract/10.1103/PhysRevFluids.7.114609",
+    "abstract": "Large Eddy Simulation (LES) is used to study the wind veer effects on the wake of a yawed wind turbine. The veer deflects the wake in the spanwise direction, and this effect can be captured in the wake model by adding a veer correction term. The counter-rotating vortex pair structures previously observed behind yawed turbines can also be recovered by subtracting the background veer vorticity.",
+    "tags": ["LES", "wind energy", "wake modeling", "atmospheric boundary layer"]
+  },
+  {
+    "year": 2021,
+    "title": "Large eddy simulation of transitional channel flow using a machine learning classifier to distinguish laminar and turbulent regions",
+    "journal": "Physical Review Fluids",
+    "volume": "6",
+    "page": "074608",
+    "authors": ["Ghanesh Narasimhan", "Charles Meneveau", "Tamer A. Zaki"],
+    "doi": "https://journals.aps.org/prfluids/abstract/10.1103/PhysRevFluids.6.074608",
+    "abstract": "Bypass and subcritical orderly transition simulated using wall-modeled LES. Self-Organizing Map (SOM) distinguishes Turbulent-Non-Turbulent regions, applying wall-modeling selectively in turbulent zones. Successfully captures friction Reynolds number evolution at DNS-level accuracy with significantly reduced computational cost.",
+    "tags": ["LES", "transition", "machine learning", "wall modeling", "SOM"]
+  }
+]

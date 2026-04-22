@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Dr. Ghanesh Narasimhan",
+    "role": "Principal Investigator",
+    "title": "Assistant Professor, Dept. of Mechanical Engineering, IISc",
+    "photo": "assets/images/GN_profile.jpg",
+    "bio": "PhD from Johns Hopkins University. Research in atmospheric turbulence, LES, wind energy, and ML-augmented turbulence modeling.",
+    "email": "ghanesh@iisc.ac.in",
+    "links": {
+      "google_scholar": "https://scholar.google.com/citations?user=Aylu3toAAAAJ&hl=en",
+      "researchgate": "https://www.researchgate.net/profile/Ghanesh-Narasimhan",
+      "orcid": "https://orcid.org/0000-0003-2165-6159",
+      "linkedin": "https://www.linkedin.com/in/ghanesh91",
+      "github": "https://github.com/ghanesh91"
+    }
+  }
+]

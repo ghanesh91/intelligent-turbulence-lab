@@ -3,264 +3,323 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intelligent Turbulence Lab — IISc</title>
+  <title>Intelligent Turbulence Lab — IISc Bangalore</title>
+  <meta name="description" content="Intelligent Turbulence Lab at the Department of Mechanical Engineering, Indian Institute of Science, Bangalore. Research in LES, wind energy, turbulence, and machine learning." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --ink: #0a0c10;
-      --cream: #f5f2ec;
-      --amber: #d4600a;
-      --amber-light: #f08030;
-      --teal: #0a5c6e;
-      --teal-light: #0e8fa8;
-      --dust: #e8e2d8;
-      --muted: #6b6458;
-      --border: rgba(10,12,16,0.12);
-    }
-
+    /* ── Reset & Root ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:         #0a0c10;
+      --cream:       #f5f2ec;
+      --amber:       #d4600a;
+      --amber-light: #f08030;
+      --teal:        #0a5c6e;
+      --teal-light:  #0e8fa8;
+      --dust:        #e8e2d8;
+      --muted:       #6b6458;
+      --border:      rgba(10,12,16,0.12);
+      --ff-head:     'Syne', sans-serif;
+      --ff-body:     'Lora', serif;
+      --ff-mono:     'DM Mono', monospace;
+    }
 
     html { scroll-behavior: smooth; }
 
     body {
+      font-family: var(--ff-body);
       background: var(--cream);
       color: var(--ink);
-      font-family: 'Lora', serif;
-      font-size: 17px;
-      line-height: 1.75;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem;
-      height: 64px;
-      background: rgba(245,242,236,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+    a { color: inherit; text-decoration: none; }
+
+    img { display: block; max-width: 100%; }
+
+    /* ── Utility ── */
+    .section-label {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 0.75rem;
     }
+
+    .section-title {
+      font-family: var(--ff-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .divider {
+      width: 3rem;
+      height: 3px;
+      background: var(--amber);
+      margin-bottom: 2.5rem;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(10,12,16,0.94);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+
     .nav-logo {
-      font-family: 'Syne', sans-serif;
+      font-family: var(--ff-head);
       font-weight: 800;
       font-size: 1rem;
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      text-decoration: none;
+      color: #fff;
+      letter-spacing: 0.02em;
     }
+
     .nav-logo span { color: var(--amber); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
     .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
+      font-family: var(--ff-mono);
+      font-size: 0.78rem;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
+      color: rgba(255,255,255,0.65);
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--amber); }
 
-    /* ── HERO ── */
+    .nav-links a:hover { color: var(--amber-light); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      transition: transform 0.3s;
+    }
+
+    /* ── Hero ── */
     #hero {
-      position: relative;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      position: relative;
       overflow: hidden;
-      padding: 100px 3rem 3rem;
     }
 
     .hero-bg {
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(ellipse 70% 60% at 80% 50%, rgba(10,92,110,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(212,96,10,0.06) 0%, transparent 60%);
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(10,92,110,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 20% 80%, rgba(212,96,10,0.12) 0%, transparent 50%);
     }
 
-    /* animated turbulence SVG lines */
-    .turb-lines {
-      position: absolute; inset: 0; pointer-events: none; opacity: 0.18;
-    }
-    .turb-lines svg { width: 100%; height: 100%; }
-
-    .hero-inner {
-      position: relative; z-index: 2;
-      max-width: 1100px; width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
+    .hero-viz {
+      position: absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55%;
+      max-width: 680px;
+      opacity: 0.35;
+      pointer-events: none;
     }
 
-    .hero-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 8rem 2rem 6rem;
+      max-width: 640px;
+      margin-left: max(2rem, calc((100vw - 1160px)/2 + 2rem));
+    }
+
+    .hero-eyebrow {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
       letter-spacing: 0.15em;
-      text-transform: uppercase;
       color: var(--amber);
-      margin-bottom: 1.2rem;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.2s forwards;
+      margin-bottom: 1.5rem;
     }
 
     .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      font-family: var(--ff-head);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
       font-weight: 800;
       line-height: 1.05;
-      letter-spacing: -0.02em;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.4s forwards;
-    }
-    .hero-title em {
-      font-style: normal;
-      color: var(--teal);
-    }
-
-    .hero-sub {
-      margin-top: 1.5rem;
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 44ch;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.6s forwards;
-    }
-
-    .hero-meta {
-      margin-top: 2.5rem;
-      display: flex; flex-direction: column; gap: 0.5rem;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.8s forwards;
-    }
-    .hero-meta-item {
-      display: flex; align-items: center; gap: 0.75rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    .hero-meta-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--amber); flex-shrink: 0;
-    }
-
-    .hero-cta {
-      margin-top: 2.5rem;
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s 1s forwards;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      background: var(--amber);
       color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      border: 1.5px solid var(--teal);
-      color: var(--teal);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: background 0.2s, color 0.2s, transform 0.15s;
-    }
-    .btn-secondary:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
-
-    /* hero visual: animated vortex */
-    .hero-visual {
-      display: flex; justify-content: center; align-items: center;
-      opacity: 0;
-      animation: fadeIn 1.2s 0.8s forwards;
-    }
-    .vortex-wrap { position: relative; width: 360px; height: 360px; }
-    .vortex-ring {
-      position: absolute; border-radius: 50%;
-      border: 1.5px solid;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .vortex-ring:nth-child(1) { width: 340px; height: 340px; border-color: rgba(10,92,110,0.15); animation: spin 18s linear infinite; }
-    .vortex-ring:nth-child(2) { width: 280px; height: 280px; border-color: rgba(212,96,10,0.2); animation: spin 12s linear infinite reverse; }
-    .vortex-ring:nth-child(3) { width: 220px; height: 220px; border-color: rgba(10,92,110,0.25); animation: spin 8s linear infinite; }
-    .vortex-ring:nth-child(4) { width: 160px; height: 160px; border-color: rgba(212,96,10,0.3); animation: spin 5s linear infinite reverse; }
-    .vortex-ring:nth-child(5) { width: 100px; height: 100px; border-color: rgba(10,92,110,0.4); animation: spin 3s linear infinite; }
-    .vortex-center {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 52px; height: 52px; border-radius: 50%;
-      background: var(--teal);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-align: center;
-      line-height: 1.2;
-    }
-    /* orbital dots */
-    .orbit-dot {
-      position: absolute; top: 50%; left: 50%;
-      width: 8px; height: 8px; border-radius: 50%;
-    }
-    .orbit-dot::before {
-      content: '';
-      position: absolute;
-      width: 8px; height: 8px; border-radius: 50%;
-    }
-
-    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* ── SECTION BASE ── */
-    section { padding: 6rem 3rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
     }
-    .divider {
-      width: 48px; height: 3px;
-      background: var(--amber);
-      margin-bottom: 3rem;
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--amber);
     }
 
-    /* ── ABOUT ── */
-    #about { background: var(--ink); color: var(--cream); }
-    #about .section-label { color: var(--amber-light); }
-    #about .section-title { color: var(--cream); }
-    #about .divider { background: var(--amber-light); }
+    .hero-subtitle {
+      font-family: var(--ff-body);
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--ff-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      padding: 0.75rem 1.75rem;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-amber {
+      background: var(--amber);
+      color: #fff;
+    }
+
+    .btn-amber:hover { background: var(--amber-light); }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.75);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.3);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── Vortex SVG animation ── */
+    .vortex-path {
+      fill: none;
+      stroke: rgba(14,143,168,0.6);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+
+    .vortex-path-amber {
+      fill: none;
+      stroke: rgba(212,96,10,0.5);
+      stroke-width: 1;
+      stroke-linecap: round;
+    }
+
+    .streamline { animation: flow 4s linear infinite; }
+    .streamline:nth-child(2) { animation-duration: 5.5s; animation-delay: -1s; }
+    .streamline:nth-child(3) { animation-duration: 3.8s; animation-delay: -2s; }
+    .streamline:nth-child(4) { animation-duration: 6s; animation-delay: -0.5s; }
+    .streamline:nth-child(5) { animation-duration: 4.5s; animation-delay: -3s; }
+    .streamline:nth-child(6) { animation-duration: 5s; animation-delay: -1.5s; }
+    .streamline:nth-child(7) { animation-duration: 3.5s; animation-delay: -2.5s; }
+    .streamline:nth-child(8) { animation-duration: 6.5s; animation-delay: -0.8s; }
+
+    @keyframes flow {
+      from { stroke-dashoffset: 1000; }
+      to   { stroke-dashoffset: 0; }
+    }
+
+    .vortex-ring {
+      fill: none;
+      stroke: rgba(14,143,168,0.2);
+      stroke-width: 1;
+      transform-origin: center;
+      will-change: transform;
+    }
+
+    .vortex-ring:nth-child(1) { animation: spin 8s linear infinite; }
+    .vortex-ring:nth-child(2) { animation: spin 12s linear infinite reverse; }
+    .vortex-ring:nth-child(3) { animation: spin 16s linear infinite; }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* ── About ── */
+    #about {
+      background: var(--ink);
+      padding: 7rem 0;
+      color: #fff;
+    }
 
     .about-grid {
       display: grid;
@@ -268,578 +327,869 @@
       gap: 5rem;
       align-items: start;
     }
+
     .about-portrait {
-      position: relative;
-    }
-    .portrait-frame {
-      width: 100%;
       aspect-ratio: 3/4;
-      background: var(--teal);
-      border-radius: 4px;
-      position: relative;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .portrait-placeholder {
-      font-family: 'Syne', sans-serif;
-      font-size: 5rem;
-      font-weight: 800;
-      color: rgba(245,242,236,0.2);
-      letter-spacing: -0.04em;
-    }
-    .portrait-badge {
-      position: absolute; bottom: -1rem; right: -1rem;
-      padding: 0.75rem 1.25rem;
-      background: var(--amber);
-      color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
     }
-    .about-name {
-      font-family: 'Syne', sans-serif;
+
+    .portrait-placeholder {
+      font-family: var(--ff-head);
+      font-size: 4rem;
       font-weight: 800;
-      font-size: 2rem;
-      line-height: 1.1;
-      color: var(--cream);
-      margin-bottom: 0.4rem;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: -0.02em;
     }
-    .about-role {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--teal-light);
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.05em;
+
+    .about-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    .about-bio {
-      color: rgba(245,242,236,0.75);
-      font-size: 1rem;
+
+    #about .section-label { color: rgba(255,255,255,0.4); }
+    #about .section-title { color: #fff; }
+    #about .divider { background: var(--teal-light); }
+
+    .about-body {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
       line-height: 1.8;
+      margin-bottom: 1.25rem;
     }
-    .about-bio + .about-bio { margin-top: 1rem; }
+
+    .about-body strong { color: #fff; font-weight: 600; }
 
     .about-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
       margin-top: 2rem;
-      display: flex; gap: 1rem; flex-wrap: wrap;
     }
-    .about-link {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border: 1px solid rgba(245,242,236,0.2);
-      color: rgba(245,242,236,0.7);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .about-link:hover { border-color: var(--amber-light); color: var(--amber-light); }
 
-    /* ── RESEARCH ── */
-    #research { background: var(--cream); }
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--teal-light);
+      border: 1px solid rgba(14,143,168,0.35);
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .about-link:hover {
+      border-color: var(--teal-light);
+      background: rgba(14,143,168,0.1);
+      color: #fff;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .tag {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.75rem;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Research ── */
+    #research {
+      background: var(--cream);
+      padding: 7rem 0;
+    }
 
     .research-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      background: var(--border);
-      border: 1.5px solid var(--border);
+      gap: 1.5rem;
     }
+
     .research-card {
-      background: var(--cream);
-      padding: 2.5rem 2rem;
-      position: relative;
-      transition: background 0.25s;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 2rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
     }
-    .research-card:hover { background: var(--dust); }
+
+    .research-card:hover {
+      background: var(--dust);
+      border-color: rgba(10,12,16,0.2);
+      transform: translateY(-3px);
+    }
+
     .card-number {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
       color: var(--amber);
-      letter-spacing: 0.12em;
-      margin-bottom: 1.25rem;
-    }
-    .card-icon {
-      font-size: 2.2rem;
       margin-bottom: 1rem;
+    }
+
+    .card-icon {
       display: block;
-      line-height: 1;
-    }
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.8rem;
       margin-bottom: 0.75rem;
-      line-height: 1.25;
     }
+
+    .card-title {
+      font-family: var(--ff-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
     .card-body {
       font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ── PUBLICATIONS ── */
-    #publications { background: #f0ece5; }
-
-    .pub-list { display: flex; flex-direction: column; gap: 0; }
-    .pub-item {
-      border-top: 1px solid var(--border);
-      padding: 2rem 0;
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 2rem;
-      align-items: start;
-      transition: background 0.2s;
-    }
-    .pub-item:last-child { border-bottom: 1px solid var(--border); }
-    .pub-year {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--amber);
-      letter-spacing: 0.1em;
-      padding-top: 0.2rem;
-    }
-    .pub-journal {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--teal);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-    }
-    .pub-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      line-height: 1.35;
-      margin-bottom: 0.5rem;
-    }
-    .pub-title a { color: inherit; text-decoration: none; }
-    .pub-title a:hover { color: var(--amber); }
-    .pub-authors {
-      font-size: 0.88rem;
-      color: var(--muted);
-      font-style: italic;
-    }
-    .pub-abstract {
-      margin-top: 0.75rem;
-      font-size: 0.88rem;
       color: var(--muted);
       line-height: 1.65;
     }
 
-    /* ── JOIN ── */
+    /* ── Publications ── */
+    #publications {
+      background: #f0ece5;
+      padding: 7rem 0;
+    }
+
+    .pub-filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .pub-filter {
+      font-family: var(--ff-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      color: var(--muted);
+    }
+
+    .pub-filter:hover,
+    .pub-filter.active {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: #fff;
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 0 2rem;
+      padding: 2.25rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-year {
+      font-family: var(--ff-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      padding-top: 0.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .pub-journal {
+      font-family: var(--ff-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .pub-title {
+      font-family: var(--ff-body);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-bottom: 0.5rem;
+    }
+
+    .pub-title a {
+      color: var(--ink);
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .pub-title a:hover {
+      color: var(--amber);
+      border-color: var(--amber);
+    }
+
+    .pub-authors {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .pub-abstract {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      display: none;
+    }
+
+    .pub-abstract.open { display: block; }
+
+    .pub-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .pub-tag {
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      background: rgba(10,12,16,0.06);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    .pub-toggle {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .pub-toggle:hover { color: var(--amber-light); }
+
+    /* ── Join ── */
     #join {
       background: var(--teal);
-      color: var(--cream);
+      padding: 7rem 0;
+      color: #fff;
     }
-    #join .section-label { color: var(--amber-light); }
+
+    #join .section-label { color: rgba(255,255,255,0.45); }
     #join .section-title { color: #fff; }
-    #join .divider { background: var(--amber-light); }
+    #join .divider { background: var(--amber); }
 
     .join-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
       align-items: start;
     }
-    .join-text {
-      color: rgba(245,242,236,0.8);
-      font-size: 1rem;
-      line-height: 1.8;
+
+    .join-positions {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
     }
-    .join-text + .join-text { margin-top: 1rem; }
-    .open-positions { margin-top: 2.5rem; }
-    .open-positions h3 {
-      font-family: 'Syne', sans-serif;
+
+    .position-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px;
+      padding: 1.5rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .position-card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .position-role {
+      font-family: var(--ff-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .position-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    .position-status {
+      display: inline-block;
+      font-family: var(--ff-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      margin-top: 0.75rem;
+      background: rgba(212,96,10,0.25);
+      color: var(--amber-light);
+      border: 1px solid rgba(212,96,10,0.3);
+    }
+
+    .join-contact h3 {
+      font-family: var(--ff-head);
+      font-size: 1.2rem;
       font-weight: 700;
       color: #fff;
       margin-bottom: 1rem;
     }
-    .position-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-    .position-item {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1rem 1.25rem;
-      background: rgba(245,242,236,0.07);
-      border-left: 3px solid var(--amber);
-      border-radius: 0 2px 2px 0;
-    }
-    .position-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      color: #fff;
-      font-size: 0.9rem;
-    }
-    .position-note {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      color: rgba(245,242,236,0.5);
-      margin-top: 0.2rem;
-      letter-spacing: 0.05em;
-    }
 
-    .contact-card {
-      background: rgba(245,242,236,0.07);
-      border: 1px solid rgba(245,242,236,0.15);
-      padding: 2.5rem;
-      border-radius: 4px;
-    }
-    .contact-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      color: #fff;
+    .join-contact p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
       margin-bottom: 1.5rem;
-      font-size: 1.1rem;
     }
-    .contact-item {
-      display: flex; gap: 1rem; margin-bottom: 1.25rem; align-items: flex-start;
-    }
-    .contact-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
-    .contact-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      color: rgba(245,242,236,0.5);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-    }
-    .contact-val {
-      color: rgba(245,242,236,0.85);
-      font-size: 0.9rem;
-    }
-    .contact-val a { color: var(--amber-light); text-decoration: none; }
-    .contact-val a:hover { text-decoration: underline; }
 
-    /* ── FOOTER ── */
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .contact-label {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35);
+      min-width: 56px;
+      padding-top: 0.1rem;
+    }
+
+    .contact-value a {
+      color: var(--teal-light);
+      border-bottom: 1px solid rgba(14,143,168,0.3);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-value a:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Footer ── */
     footer {
       background: var(--ink);
-      color: rgba(245,242,236,0.4);
-      padding: 2.5rem 3rem;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 0.9rem;
-      color: rgba(245,242,236,0.6);
-      letter-spacing: 0.04em;
-    }
-    .footer-logo span { color: var(--amber); }
-    footer p {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.4);
+      padding: 3rem 0;
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 0 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-      #hero { padding: 90px 1.5rem 3rem; }
-      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .hero-visual { order: -1; }
-      .vortex-wrap { width: 240px; height: 240px; }
-      section { padding: 4rem 1.5rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .portrait-frame { max-width: 280px; }
-      .research-grid { grid-template-columns: 1fr; }
-      .join-grid { grid-template-columns: 1fr; gap: 3rem; }
-      footer { padding: 2rem 1.5rem; }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
-    @media (max-width: 600px) {
+
+    .footer-logo {
+      font-family: var(--ff-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .footer-logo span { color: var(--amber); }
+
+    .footer-text {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--amber); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-portrait { max-width: 280px; }
+      .research-grid { grid-template-columns: repeat(2, 1fr); }
+      .join-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 640px) {
       .nav-links { display: none; }
-      .hero-title { font-size: 2.4rem; }
+      .nav-toggle { display: flex; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(10,12,16,0.97);
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        z-index: 200;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .hero-viz { display: none; }
+      .research-grid { grid-template-columns: 1fr; }
+      .pub-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      .pub-year { font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">ITL <span>//</span> IISc</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="#join">Join Us</a></li>
-  </ul>
-</nav>
+  <!-- ── Navigation ── -->
+  <nav id="navbar">
+    <a class="nav-logo" href="#hero">ITL <span>//</span> IISc</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#join">Join</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="turb-lines">
-    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="blur1"><feGaussianBlur stdDeviation="2"/></filter>
-      </defs>
-      <!-- turbulent streamlines -->
-      <g filter="url(#blur1)" stroke="var(--teal)" stroke-width="1.2" fill="none" opacity="0.6">
-        <path d="M-50 200 Q 200 180 400 220 T 800 200 T 1250 180"><animate attributeName="d" dur="8s" repeatCount="indefinite" values="M-50 200 Q 200 180 400 220 T 800 200 T 1250 180;M-50 200 Q 200 240 400 200 T 800 230 T 1250 200;M-50 200 Q 200 180 400 220 T 800 200 T 1250 180"/></path>
-        <path d="M-50 280 Q 300 260 500 300 T 900 270 T 1250 290"><animate attributeName="d" dur="11s" repeatCount="indefinite" values="M-50 280 Q 300 260 500 300 T 900 270 T 1250 290;M-50 280 Q 300 310 500 270 T 900 300 T 1250 270;M-50 280 Q 300 260 500 300 T 900 270 T 1250 290"/></path>
-        <path d="M-50 360 Q 150 340 350 380 T 750 350 T 1250 370"><animate attributeName="d" dur="9s" repeatCount="indefinite" values="M-50 360 Q 150 340 350 380 T 750 350 T 1250 370;M-50 360 Q 150 390 350 350 T 750 380 T 1250 350;M-50 360 Q 150 340 350 380 T 750 350 T 1250 370"/></path>
-        <path d="M-50 440 Q 250 420 450 460 T 850 430 T 1250 450"><animate attributeName="d" dur="14s" repeatCount="indefinite" values="M-50 440 Q 250 420 450 460 T 850 430 T 1250 450;M-50 440 Q 250 470 450 430 T 850 460 T 1250 430;M-50 440 Q 250 420 450 460 T 850 430 T 1250 450"/></path>
-        <path d="M-50 520 Q 350 500 550 540 T 950 510 T 1250 530"><animate attributeName="d" dur="10s" repeatCount="indefinite" values="M-50 520 Q 350 500 550 540 T 950 510 T 1250 530;M-50 520 Q 350 550 550 510 T 950 540 T 1250 510;M-50 520 Q 350 500 550 540 T 950 510 T 1250 530"/></path>
+  <!-- ── Hero ── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+
+    <!-- Vortex visualization -->
+    <svg class="hero-viz" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Vortex rings -->
+      <g transform="translate(300,300)">
+        <ellipse class="vortex-ring" rx="240" ry="80" />
+        <ellipse class="vortex-ring" rx="180" ry="60" />
+        <ellipse class="vortex-ring" rx="120" ry="40" />
       </g>
-      <g stroke="var(--amber)" stroke-width="0.8" fill="none" opacity="0.4">
-        <path d="M-50 150 Q 400 130 600 170 T 1050 150 T 1250 160"><animate attributeName="d" dur="13s" repeatCount="indefinite" values="M-50 150 Q 400 130 600 170 T 1050 150 T 1250 160;M-50 150 Q 400 180 600 140 T 1050 180 T 1250 140;M-50 150 Q 400 130 600 170 T 1050 150 T 1250 160"/></path>
-        <path d="M-50 490 Q 200 470 400 510 T 800 480 T 1250 500"><animate attributeName="d" dur="7s" repeatCount="indefinite" values="M-50 490 Q 200 470 400 510 T 800 480 T 1250 500;M-50 490 Q 200 520 400 480 T 800 510 T 1250 480;M-50 490 Q 200 470 400 510 T 800 480 T 1250 500"/></path>
-      </g>
+      <!-- Streamlines -->
+      <path class="vortex-path streamline" stroke-dasharray="600" stroke-dashoffset="600"
+        d="M20,300 C80,200 180,150 300,180 C420,210 500,270 560,300 C500,330 420,390 300,420 C180,450 80,400 20,300 Z" />
+      <path class="vortex-path streamline" stroke-dasharray="550" stroke-dashoffset="550"
+        d="M60,300 C110,220 200,175 300,195 C400,215 480,268 530,300 C480,332 400,385 300,405 C200,425 110,380 60,300 Z" />
+      <path class="vortex-path streamline" stroke-dasharray="480" stroke-dashoffset="480"
+        d="M100,300 C140,235 220,200 300,210 C380,220 455,268 500,300 C455,332 380,380 300,390 C220,400 140,365 100,300 Z" />
+      <path class="vortex-path streamline" stroke-dasharray="400" stroke-dashoffset="400"
+        d="M140,300 C170,250 240,225 300,228 C360,231 425,268 460,300 C425,332 360,369 300,372 C240,375 170,350 140,300 Z" />
+      <!-- Amber streamlines -->
+      <path class="vortex-path-amber streamline" stroke-dasharray="700" stroke-dashoffset="700"
+        d="M0,280 C50,160 170,100 300,130 C430,160 530,230 580,280 L580,320 C530,370 430,440 300,470 C170,500 50,440 0,320 Z" />
+      <path class="vortex-path-amber streamline" stroke-dasharray="650" stroke-dashoffset="650"
+        d="M10,260 C70,140 185,80 300,110 C415,140 520,215 570,260 L570,340 C520,385 415,460 300,490 C185,520 70,460 10,340 Z" />
+      <!-- Particle dots -->
+      <circle cx="300" cy="180" r="3" fill="rgba(14,143,168,0.7)">
+        <animateMotion dur="4s" repeatCount="indefinite"
+          path="M0,0 C100,-50 200,-30 220,0 C200,30 100,50 0,0 Z" />
+      </circle>
+      <circle cx="300" cy="420" r="2.5" fill="rgba(212,96,10,0.7)">
+        <animateMotion dur="5.5s" repeatCount="indefinite" begin="-2s"
+          path="M0,0 C-80,40 -160,20 -180,0 C-160,-20 -80,-40 0,0 Z" />
+      </circle>
+      <circle cx="150" cy="300" r="2" fill="rgba(14,143,168,0.5)">
+        <animateMotion dur="3.5s" repeatCount="indefinite" begin="-1s"
+          path="M0,0 C60,-80 140,-60 150,0 C140,60 60,80 0,0 Z" />
+      </circle>
+      <!-- Center vortex core -->
+      <circle cx="300" cy="300" r="8" fill="none" stroke="rgba(14,143,168,0.4)" stroke-width="1.5">
+        <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="300" cy="300" r="3" fill="rgba(14,143,168,0.8)" />
     </svg>
-  </div>
 
-  <div class="hero-inner">
-    <div class="hero-left">
-      <p class="hero-label">// Intelligent Turbulence Lab</p>
-      <h1 class="hero-title">Where Fluid<br>Dynamics Meets<br><em>Intelligence</em></h1>
-      <p class="hero-sub">Advancing the science of turbulence through high-fidelity simulation, machine learning, and physics-informed modeling — from wind energy to geophysics.</p>
-      <div class="hero-meta">
-        <div class="hero-meta-item">
-          <span class="hero-meta-dot"></span>
-          <span>Dept. of Mechanical Engineering, IISc Bangalore</span>
-        </div>
-        <div class="hero-meta-item">
-          <span class="hero-meta-dot"></span>
-          <span>Large Eddy Simulation · Wind Energy · Machine Learning</span>
-        </div>
-        <div class="hero-meta-item">
-          <span class="hero-meta-dot"></span>
-          <span>PI: Dr. Ghanesh Narasimhan (Assistant Professor)</span>
-        </div>
-      </div>
-      <div class="hero-cta">
-        <a href="#research" class="btn-primary">Our Research ↓</a>
-        <a href="#join" class="btn-secondary">Open Positions</a>
+    <div class="hero-content">
+      <p class="hero-eyebrow">// IISc Mechanical Engineering · Bangalore</p>
+      <h1 class="hero-title">Intelligent<br /><em>Turbulence</em><br />Lab</h1>
+      <p class="hero-subtitle">
+        Large Eddy Simulation · Wind Energy · Atmospheric Turbulence ·
+        Machine Learning for Fluid Mechanics
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-amber" href="#research">Explore Research</a>
+        <a class="btn btn-outline" href="#publications">Publications</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="vortex-wrap">
-        <div class="vortex-ring"></div>
-        <div class="vortex-ring"></div>
-        <div class="vortex-ring"></div>
-        <div class="vortex-ring"></div>
-        <div class="vortex-ring"></div>
-        <div class="vortex-center">ITL<br>IISc</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-inner">
-    <p class="section-label">// Principal Investigator</p>
-    <h2 class="section-title">Dr. Ghanesh Narasimhan</h2>
-    <div class="divider"></div>
-    <div class="about-grid">
-      <div class="about-portrait">
-        <div class="portrait-frame">
-          <span class="portrait-placeholder">GN</span>
-        </div>
-        <div class="portrait-badge">Asst. Prof · ME · IISc</div>
-      </div>
-      <div>
-        <p class="about-name">Ghanesh Narasimhan</p>
-        <p class="about-role">// Assistant Professor — Department of Mechanical Engineering</p>
-        <p class="about-bio">Dr. Narasimhan's research sits at the intersection of fluid dynamics, large-scale simulation, and data-driven modeling. He earned his PhD from Johns Hopkins University, where he worked on turbulence modeling for wind energy, transition phenomena, and magnetohydrodynamics.</p>
-        <p class="about-bio">At the Intelligent Turbulence Lab, the group develops novel computational frameworks — combining high-fidelity Large Eddy Simulation with machine learning classifiers and physics-informed models — to understand and predict turbulent flows in engineering and geophysical contexts.</p>
-        <p class="about-bio">The lab's work spans atmospheric boundary layer flows for wind farm optimization, bypass and subcritical transition to turbulence, wake interaction modeling for yawed turbines, and magnetohydrodynamic flows relevant to Earth sciences.</p>
-        <div class="about-links">
-          <a href="https://scholar.google.com/citations?user=Aylu3toAAAAJ&hl=en" target="_blank" class="about-link">
-            ↗ Google Scholar
-          </a>
-          <a href="https://www.researchgate.net/profile/Ghanesh-Narasimhan" target="_blank" class="about-link">
-            ↗ ResearchGate
-          </a>
-          <a href="https://orcid.org/0000-0003-2165-6159" target="_blank" class="about-link">
-            ↗ ORCID
-          </a>
-          <a href="https://www.linkedin.com/in/ghanesh91" target="_blank" class="about-link">
-            ↗ LinkedIn
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="hero-scroll" aria-hidden="true">scroll</div>
+  </section>
 
-<!-- RESEARCH -->
-<section id="research">
-  <div class="section-inner">
-    <p class="section-label">// Research Areas</p>
-    <h2 class="section-title">What We Study</h2>
-    <div class="divider"></div>
-    <div class="research-grid">
-      <div class="research-card">
-        <p class="card-number">01 ——</p>
-        <span class="card-icon">🌀</span>
-        <h3 class="card-title">Atmospheric Turbulence & Wind Energy</h3>
-        <p class="card-body">High-fidelity LES of wind turbine wakes in atmospheric boundary layers, including yaw-based control strategies, wind veer effects, and reduced-order wake models for farm-scale optimization.</p>
-      </div>
-      <div class="research-card">
-        <p class="card-number">02 ——</p>
-        <span class="card-icon">⚡</span>
-        <h3 class="card-title">Transition to Turbulence</h3>
-        <p class="card-body">Capturing bypass and subcritical orderly transition using wall-modeled LES combined with ML classifiers (Self-Organizing Maps) to distinguish laminar and turbulent flow regions at reduced computational cost.</p>
-      </div>
-      <div class="research-card">
-        <p class="card-number">03 ——</p>
-        <span class="card-icon">🤖</span>
-        <h3 class="card-title">ML-Augmented Turbulence Modeling</h3>
-        <p class="card-body">Developing data-driven closures and classifiers that augment physics-based simulations, enabling smarter sub-grid scale models and more accurate prediction of complex turbulent phenomena.</p>
-      </div>
-      <div class="research-card">
-        <p class="card-number">04 ——</p>
-        <span class="card-icon">🌍</span>
-        <h3 class="card-title">Magnetohydrodynamics</h3>
-        <p class="card-body">MHD flow modeling for Earth science applications, examining how electromagnetic effects couple with turbulent fluid dynamics in geophysical contexts such as the Earth's outer core.</p>
-      </div>
-      <div class="research-card">
-        <p class="card-number">05 ——</p>
-        <span class="card-icon">💨</span>
-        <h3 class="card-title">Wake Interactions & Control</h3>
-        <p class="card-body">Understanding counter-rotating vortex pair structures behind yawed turbines, wake deflection, and superposition effects in wind farms — toward intelligent real-time control of large-scale arrays.</p>
-      </div>
-      <div class="research-card">
-        <p class="card-number">06 ——</p>
-        <span class="card-icon">🔬</span>
-        <h3 class="card-title">High-Performance Computing</h3>
-        <p class="card-body">Developing scalable numerical methods and HPC pipelines for large-scale turbulence simulations, leveraging GPU acceleration and modern parallel architectures for next-generation CFD.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PUBLICATIONS -->
-<section id="publications">
-  <div class="section-inner">
-    <p class="section-label">// Selected Publications</p>
-    <h2 class="section-title">Research Output</h2>
-    <div class="divider"></div>
-    <div class="pub-list">
-
-      <div class="pub-item">
-        <div class="pub-year">2022</div>
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
         <div>
-          <p class="pub-journal">Physical Review Fluids</p>
-          <h3 class="pub-title">
-            <a href="https://journals.aps.org/prfluids/abstract/10.1103/PhysRevFluids.7.114609" target="_blank">
-              Effects of wind veer on a yawed wind turbine wake in atmospheric boundary layer flow
-            </a>
-          </h3>
-          <p class="pub-authors">Ghanesh Narasimhan, Dennice F. Gayme, and Charles Meneveau</p>
-          <p class="pub-abstract">LES study of wind veer effects on yawed wind turbine wakes in ABL flow. A veer correction term is derived for analytical wake models, and counter-rotating vortex pair structures are recovered by subtracting background veer vorticity.</p>
+          <div class="about-portrait" id="about-portrait">
+            <div class="portrait-placeholder">GN</div>
+          </div>
         </div>
-      </div>
-
-      <div class="pub-item">
-        <div class="pub-year">2021</div>
         <div>
-          <p class="pub-journal">Physical Review Fluids</p>
-          <h3 class="pub-title">
-            <a href="https://journals.aps.org/prfluids/abstract/10.1103/PhysRevFluids.6.074608" target="_blank">
-              Large eddy simulation of transitional channel flow using a machine learning classifier to distinguish laminar and turbulent regions
+          <p class="section-label">// Principal Investigator</p>
+          <h2 class="section-title">Dr. Ghanesh<br />Narasimhan</h2>
+          <div class="divider"></div>
+          <p class="about-body">
+            <strong>Assistant Professor</strong> in the Department of Mechanical Engineering
+            at the <strong>Indian Institute of Science (IISc)</strong>, Bangalore.
+          </p>
+          <p class="about-body">
+            PhD from <strong>Johns Hopkins University</strong>. Research focuses on
+            understanding and modeling <strong>atmospheric turbulence</strong>, leveraging
+            Large Eddy Simulation (LES) and machine learning to improve wind energy
+            systems and turbulence closure models.
+          </p>
+          <p class="about-body">
+            Interests span turbulent flow physics, wind farm aerodynamics, wall-modeled LES,
+            and data-driven approaches for turbulence modeling.
+          </p>
+          <div class="about-tags">
+            <span class="tag">Large Eddy Simulation</span>
+            <span class="tag">Wind Energy</span>
+            <span class="tag">Atmospheric Boundary Layer</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Turbulence Modeling</span>
+            <span class="tag">Wake Aerodynamics</span>
+          </div>
+          <div class="about-links">
+            <a class="about-link" href="https://scholar.google.com/citations?user=Aylu3toAAAAJ&hl=en" target="_blank" rel="noopener">
+              ↗ Google Scholar
             </a>
-          </h3>
-          <p class="pub-authors">Ghanesh Narasimhan, Charles Meneveau, and Tamer A. Zaki</p>
-          <p class="pub-abstract">Wall-modeled LES of bypass and subcritical orderly transition, using Self-Organizing Maps (SOM) to identify turbulent–non-turbulent interfaces and selectively apply wall modeling, successfully capturing friction Reynolds number evolution at DNS-level accuracy with significantly reduced cost.</p>
-        </div>
-      </div>
-
-    </div>
-    <div style="margin-top:2.5rem;">
-      <a href="https://scholar.google.com/citations?user=Aylu3toAAAAJ&hl=en" target="_blank" class="btn-primary">
-        View All Publications ↗
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- JOIN -->
-<section id="join">
-  <div class="section-inner">
-    <p class="section-label">// Opportunities</p>
-    <h2 class="section-title">Join the Lab</h2>
-    <div class="divider"></div>
-    <div class="join-grid">
-      <div>
-        <p class="join-text">The Intelligent Turbulence Lab is actively recruiting motivated students and researchers excited about combining cutting-edge fluid dynamics with data-driven methods. We welcome applicants with strong backgrounds in engineering, physics, applied mathematics, or computer science.</p>
-        <p class="join-text">Our group values curiosity, rigorous thinking, and collaborative spirit. You'll have access to high-performance computing resources and work on problems at the frontier of turbulence research — with real-world impact on clean energy and environmental modeling.</p>
-        <div class="open-positions">
-          <h3>Open Positions</h3>
-          <ul class="position-list">
-            <li class="position-item">
-              <div>
-                <p class="position-title">PhD Students</p>
-                <p class="position-note">Via IISc ME Dept. admissions · 2025 intake</p>
-              </div>
-            </li>
-            <li class="position-item">
-              <div>
-                <p class="position-title">Postdoctoral Researchers</p>
-                <p class="position-note">Reach out directly with CV and research statement</p>
-              </div>
-            </li>
-            <li class="position-item">
-              <div>
-                <p class="position-title">M.Tech / Research Interns</p>
-                <p class="position-note">IISc students — email to discuss projects</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="contact-card">
-        <h3>Get in Touch</h3>
-        <div class="contact-item">
-          <span class="contact-icon">✉</span>
-          <div>
-            <p class="contact-label">Email</p>
-            <p class="contact-val"><a href="mailto:ghanesh@iisc.ac.in">ghanesh@iisc.ac.in</a></p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">📍</span>
-          <div>
-            <p class="contact-label">Location</p>
-            <p class="contact-val">Department of Mechanical Engineering<br>Indian Institute of Science<br>Bangalore 560012, India</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">🎓</span>
-          <div>
-            <p class="contact-label">PhD at JHU</p>
-            <p class="contact-val">Dept. of Mechanical Engineering<br>Johns Hopkins University</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">🔗</span>
-          <div>
-            <p class="contact-label">Profiles</p>
-            <p class="contact-val">
-              <a href="https://scholar.google.com/citations?user=Aylu3toAAAAJ" target="_blank">Google Scholar</a> ·
-              <a href="https://orcid.org/0000-0003-2165-6159" target="_blank">ORCID</a> ·
-              <a href="https://www.researchgate.net/profile/Ghanesh-Narasimhan" target="_blank">ResearchGate</a>
-            </p>
+            <a class="about-link" href="https://www.researchgate.net/profile/Ghanesh-Narasimhan" target="_blank" rel="noopener">
+              ↗ ResearchGate
+            </a>
+            <a class="about-link" href="https://orcid.org/0000-0003-2165-6159" target="_blank" rel="noopener">
+              ↗ ORCID
+            </a>
+            <a class="about-link" href="https://www.linkedin.com/in/ghanesh91" target="_blank" rel="noopener">
+              ↗ LinkedIn
+            </a>
+            <a class="about-link" href="https://github.com/ghanesh91" target="_blank" rel="noopener">
+              ↗ GitHub
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Intelligent Turbulence Lab <span>//</span> IISc</div>
-  <p>Dept. of Mechanical Engineering · Indian Institute of Science · Bangalore</p>
-  <p>© 2025 Dr. Ghanesh Narasimhan</p>
-</footer>
+  <!-- ── Research ── -->
+  <section id="research">
+    <div class="container">
+      <p class="section-label">// What We Do</p>
+      <h2 class="section-title">Research Areas</h2>
+      <div class="divider"></div>
+      <div class="research-grid">
+        <div class="research-card">
+          <p class="card-number">01 ——</p>
+          <span class="card-icon">🌊</span>
+          <h3 class="card-title">Large Eddy Simulation</h3>
+          <p class="card-body">High-fidelity LES of turbulent flows including channel flow, boundary layers, and complex terrain. Development of wall models and subgrid-scale closures.</p>
+        </div>
+        <div class="research-card">
+          <p class="card-number">02 ——</p>
+          <span class="card-icon">💨</span>
+          <h3 class="card-title">Wind Turbine Wakes</h3>
+          <p class="card-body">Physics of wind turbine wake dynamics — yaw-induced deflection, wind veer effects, counter-rotating vortex pairs, and wake superposition in wind farms.</p>
+        </div>
+        <div class="research-card">
+          <p class="card-number">03 ——</p>
+          <span class="card-icon">⚡</span>
+          <h3 class="card-title">Wind Energy Systems</h3>
+          <p class="card-body">Optimizing wind farm layout and control strategies through physics-based wake modeling. Bridging high-fidelity simulation with engineering-scale tools.</p>
+        </div>
+        <div class="research-card">
+          <p class="card-number">04 ——</p>
+          <span class="card-icon">🧠</span>
+          <h3 class="card-title">ML for Turbulence</h3>
+          <p class="card-body">Machine learning methods for turbulence classification, subgrid-scale modeling, and wall modeling. Self-organizing maps, neural networks, and data-driven closures.</p>
+        </div>
+        <div class="research-card">
+          <p class="card-number">05 ——</p>
+          <span class="card-icon">🌫️</span>
+          <h3 class="card-title">Atmospheric Boundary Layer</h3>
+          <p class="card-body">Simulating and modeling the turbulent atmospheric boundary layer — including stability effects, Coriolis forcing, wind veer, and surface heterogeneity.</p>
+        </div>
+        <div class="research-card">
+          <p class="card-number">06 ——</p>
+          <span class="card-icon">🔀</span>
+          <h3 class="card-title">Laminar-Turbulent Transition</h3>
+          <p class="card-body">LES of bypass and subcritical orderly transition. Selective wall-modeling conditioned on turbulence state to capture transition at reduced computational cost.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ── Publications ── -->
+  <section id="publications">
+    <div class="container">
+      <p class="section-label">// Selected Works</p>
+      <h2 class="section-title">Publications</h2>
+      <div class="divider"></div>
+
+      <div class="pub-filters" id="pub-filters">
+        <button class="pub-filter active" data-tag="all">All</button>
+      </div>
+
+      <div class="pub-list" id="pub-list">
+        <!-- Populated by JS from data/publications.json -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Join ── -->
+  <section id="join">
+    <div class="container">
+      <div class="join-grid">
+        <div>
+          <p class="section-label">// Open Positions</p>
+          <h2 class="section-title">Join the Lab</h2>
+          <div class="divider"></div>
+          <p style="color:rgba(255,255,255,0.65); font-size:1rem; line-height:1.75; margin-bottom:1rem;">
+            We are actively recruiting motivated researchers at all levels to work on
+            turbulence physics, wind energy, and machine learning for fluid mechanics.
+          </p>
+          <div class="join-positions">
+            <div class="position-card">
+              <div class="position-role">PhD Students</div>
+              <p class="position-desc">Strong background in fluid mechanics, applied mathematics, or computational science. Experience with CFD or ML is a plus.</p>
+              <span class="position-status">Open</span>
+            </div>
+            <div class="position-card">
+              <div class="position-role">Postdoctoral Researchers</div>
+              <p class="position-desc">PhD in mechanical/aerospace engineering, applied physics, or related field. Independent research track record expected.</p>
+              <span class="position-status">Open</span>
+            </div>
+            <div class="position-card">
+              <div class="position-role">M.Tech / Project Students</div>
+              <p class="position-desc">IISc students interested in computational turbulence or wind energy research. Semester and summer projects available.</p>
+              <span class="position-status">Open</span>
+            </div>
+          </div>
+        </div>
+        <div class="join-contact">
+          <h3>Get in Touch</h3>
+          <p>Send a brief email with your CV, research interests, and why you want to join the lab. Applications are reviewed on a rolling basis.</p>
+          <a class="btn btn-amber" href="mailto:ghanesh@iisc.ac.in">Send Email</a>
+          <div class="contact-details">
+            <div class="contact-item">
+              <span class="contact-label">Email</span>
+              <span class="contact-value">
+                <a href="mailto:ghanesh@iisc.ac.in">ghanesh@iisc.ac.in</a>
+              </span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Dept.</span>
+              <span class="contact-value" style="color:rgba(255,255,255,0.65);">Mechanical Engineering, IISc</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Where</span>
+              <span class="contact-value" style="color:rgba(255,255,255,0.65);">Bengaluru, Karnataka 560012</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Intelligent <span>Turbulence</span> Lab</div>
+        <p class="footer-text">Dept. of Mechanical Engineering · IISc Bangalore</p>
+        <div class="footer-links">
+          <a href="https://scholar.google.com/citations?user=Aylu3toAAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+          <a href="https://github.com/ghanesh91" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://orcid.org/0000-0003-2165-6159" target="_blank" rel="noopener">ORCID</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Nav scroll effect ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+
+    // ── Mobile menu ──
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ── Publications from JSON ──
+    async function loadPublications() {
+      try {
+        const res = await fetch('data/publications.json');
+        const pubs = await res.json();
+        renderPublications(pubs);
+      } catch {
+        // fallback: hardcoded pubs if fetch fails (e.g. file:// protocol)
+        renderPublications(FALLBACK_PUBS);
+      }
+    }
+
+    const FALLBACK_PUBS = [
+      {
+        year: 2022,
+        title: "Effects of wind veer on a yawed wind turbine wake in atmospheric boundary layer flow",
+        journal: "Physical Review Fluids",
+        volume: "7(11)", page: "114609",
+        authors: ["Ghanesh Narasimhan", "Dennice F. Gayme", "Charles Meneveau"],
+        doi: "https://journals.aps.org/prfluids/abstract/10.1103/PhysRevFluids.7.114609",
+        abstract: "Large Eddy Simulation (LES) is used to study the wind veer effects on the wake of a yawed wind turbine. The veer deflects the wake in the spanwise direction, and this effect can be captured in the wake model by adding a veer correction term. The counter-rotating vortex pair structures previously observed behind yawed turbines can also be recovered by subtracting the background veer vorticity.",
+        tags: ["LES", "wind energy", "wake modeling", "atmospheric boundary layer"]
+      },
+      {
+        year: 2021,
+        title: "Large eddy simulation of transitional channel flow using a machine learning classifier to distinguish laminar and turbulent regions",
+        journal: "Physical Review Fluids",
+        volume: "6", page: "074608",
+        authors: ["Ghanesh Narasimhan", "Charles Meneveau", "Tamer A. Zaki"],
+        doi: "https://journals.aps.org/prfluids/abstract/10.1103/PhysRevFluids.6.074608",
+        abstract: "Bypass and subcritical orderly transition simulated using wall-modeled LES. Self-Organizing Map (SOM) distinguishes Turbulent-Non-Turbulent regions, applying wall-modeling selectively in turbulent zones. Successfully captures friction Reynolds number evolution at DNS-level accuracy with significantly reduced computational cost.",
+        tags: ["LES", "transition", "machine learning", "wall modeling", "SOM"]
+      }
+    ];
+
+    function renderPublications(pubs) {
+      const list = document.getElementById('pub-list');
+      const filtersEl = document.getElementById('pub-filters');
+
+      // Collect all unique tags
+      const allTags = new Set();
+      pubs.forEach(p => (p.tags || []).forEach(t => allTags.add(t)));
+
+      // Build filter buttons
+      allTags.forEach(tag => {
+        const btn = document.createElement('button');
+        btn.className = 'pub-filter';
+        btn.dataset.tag = tag;
+        btn.textContent = tag;
+        filtersEl.appendChild(btn);
+      });
+
+      // Render pub items
+      list.innerHTML = '';
+      pubs.forEach((pub, idx) => {
+        const item = document.createElement('div');
+        item.className = 'pub-item';
+        item.dataset.tags = (pub.tags || []).join(',');
+        item.innerHTML = `
+          <div class="pub-year">${pub.year}</div>
+          <div>
+            <p class="pub-journal">${pub.journal} ${pub.volume ? '· ' + pub.volume : ''}${pub.page ? ' · ' + pub.page : ''}</p>
+            <h3 class="pub-title"><a href="${pub.doi}" target="_blank" rel="noopener">${pub.title}</a></h3>
+            <p class="pub-authors">${pub.authors.join(', ')}</p>
+            ${pub.tags ? `<div class="pub-tags">${pub.tags.map(t => `<span class="pub-tag">${t}</span>`).join('')}</div>` : ''}
+            <button class="pub-toggle" data-idx="${idx}">+ abstract</button>
+            <p class="pub-abstract" id="abstract-${idx}">${pub.abstract || ''}</p>
+          </div>`;
+        list.appendChild(item);
+      });
+
+      // Abstract toggles
+      list.querySelectorAll('.pub-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = btn.dataset.idx;
+          const abs = document.getElementById('abstract-' + idx);
+          const open = abs.classList.toggle('open');
+          btn.textContent = open ? '− abstract' : '+ abstract';
+        });
+      });
+
+      // Filter buttons
+      filtersEl.querySelectorAll('.pub-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filtersEl.querySelectorAll('.pub-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const tag = btn.dataset.tag;
+          list.querySelectorAll('.pub-item').forEach(item => {
+            const tags = item.dataset.tags.split(',');
+            item.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+          });
+        });
+      });
+    }
+
+    loadPublications();
+
+    // ── Intersection observer for subtle fade-in ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.research-card, .pub-item, .position-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
